@@ -1,13 +1,280 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<title>My Digital ID Card</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>STUDENT ID CARD GENERATOR</title>
+<script src="https;//cloudflare.com"></script>
+<style>
+*{
+box-sizing:border-box;
+}
+body{
+font-family:Arial, san-serif;
+background-color:"#f0f0f0
+margin:0;
+padding: 40px 20px;
+display:flex;
+justify-content;
+align-items:flex-start;
+min-height:100vh;
+box-sizing:border-box;
+}
+.main-container{
+display:flex;
+flex-direction: row;
+gap:40px;
+background:white;
+padding:30px;
+border-radius:12px;
+box-shadow:0 4px 15px rgba(0,0,0,0.1);
+max-width:950px;
+width:100%;
+box-sizing:border-box;
+}
+input-section{
+flex:1;
+display:flex;
+flex-direction:column;
+gap:12px;
+min-width:300px;
+}
+input-section h2{
+margin: 0 0 10px 0;
+color: #333;
+}
+
+input [type="text"]{
+padding:10px;
+margin:8px;
+border: 1px solid #ccc
+border-radius:6px;
+font-size:14px;
+width:100%;
+box-sizing:border-box;
+margin-top:5px;	
+}
+.file-label{
+font-size:13px;
+color:#555;
+margin-top:5px;
+font-weight:bold;
+}
+.btn-group{
+display:flex;
+gap:10px;
+margin-top:10px;
+}
+button {
+flex:1;
+padding: 10px 20px;
+background-color: #007bff;
+color:white;
+border:none;
+border-radius:6px;
+font-weight:bold;
+cursor:pointer;
+font-size:15px;
+margin-top:10px;
+transition:0.2s;
+}
+.get-btn{
+background-color:#1b7339;
+}
+
+.download-btn{
+background-color:#007bff;
+}
+.download-btn:hover{
+background-color:#0056b3;
+}
+.idcard-wrapper {
+flex:1;
+display:flex;
+justify-content:center;
+align-items:center;
+}
+.idcard {
+width: 500px;
+height:300px;
+border: 2px solid #1e3d59;
+border-radius:8px;
+margin-top:20px;
+font-family:Arial, sans-serif;
+overflow:hidden;
+background-color:#f9f9f9;
+flex-direction:column;
+justify-content:space-between;
+}
+.card-header {
+background-color:#1e3d59;
+color:white;
+width:100%;
+text-align:center;
+padding:10px 14px;
+display:flex;
+font-weight:bold;
+font-size:16px;
+border-bottom: 4px solid #ffcc00;
+justify-content:space-between;
+box-sizing:border-box;
+}
+
+.college-name{
+font-size:18px;
+font-weight:bold;
+margin 0;
+}
+.college-address{
+font-size:12px;
+color:#555;
+margin:0 0 15px 0;
+}
+.id-title{
+font-size:10px;
+font-weight:bold;
+background:rgba(255,255,255,0.2);
+padding:2px 6px;
+border-radius:4px;
+}
+.card-body{
+flex:1;
+display:flex;
+flex-direction:row;
+padding:15px;
+gap:6px;
+align:center;
+box-sizing:border-box;
+}
+details-col{
+flex:2;
+display:flex;
+flex-direction:column;
+gap:8px;
+}
+.student-info{
+font-size:14 px;
+color:#333;
+margin:5px 0;
+}
+student-info strong{
+display:inline-block;
+width:110px;
+color:#555;
+}
+.student-info span{
+color:#111;
+word-break:break-all;
+}
+.photo-col{
+flex:1;
+display:flex;
+justify-content:center;
+align-items:center;
+}
+.photo-box{
+width:110px;
+height: 120px;
+border:2px solid #1b7339;
+background-color:#e0e0e0;
+display: flex;
+justify-content: center;
+align-items:center;
+font-size:11px;
+color: #666;
+font-weight:bold;
+text-align:center;
+font-size:11px;
+color:#666;
+font-weight:bold;
+text-align:center;
+overflow:hidden;
+}
+.photo-box img{
+width: 100%;
+height: 100%;
+object-fit: cover;
+display: none;
+}
+.card-footer{
+background-color: #115327;
+color: white;
+padding: 6px 12px;
+text-align:center;
+}
+.
+</style>
 </head>
+<div class="main-container">
 <body>
-<div class="card-box">
-<h1>VARSHA SAKAWAL</h1>
-<p class="designation">MCA & BCA GRADUATE</p>
-<p class="college">Rajasthan University</p>
-<p class="status">Status: Learning Practical coding</p>
+<div class="input-section">
+<h2>Student Details</h2>
+
+<input type="text" id="stuName" placeholder="Student Name">
+<input type="text" id="stuRoll" placeholder="Roll Number">
+<input type="text" id="Father" placeholder="Father's Name">
+<input type="text" id="Mother" placeholder="Mother's Name">
+<input type="text" id="stuPhone" placeholder="Contact No">
+<span class="file-label">Upload Student Photo:</span>
+<input type="file" id="stuphoto" accept="image/*" onchange="previewPhoto(event)">
+<button onclick="showDetails()">Generate ID Card</button>
+<button class="download-btn" onclick="downloadCard()">Download ID Card</button>
 </div>
+</div>
+<div class="idcard" id="myIdCard">
+<div class="card-header">STUDENT ID CARD</div>
+<div style="padding: 20px;">
+<p class="college-name"> Sri balaji PG mahavidhyala</p>
+<p class="college-address">Benar Road jaipur 302012</p>
+<hr>
+<p class="student-info"><strong>Name:</strong> <span id="outName">----</span></p>
+<p class="student-info"><strong>Roll NO:</strong> <span id="outroll">---</span></p>
+<p class="student-info"><strong>Father Name:</strong> <span id="outFather">----</span></p>
+<p class="student-info"><strong>Mother Name:</strong> <span id="outMother">---</span></p>
+<p class="student-info"><strong>contact Number:</strong> <span id="outcontact">---</span></p>
+</div>
+</div>
+<div class="photo-col">
+<div class="photo-box" id="=pBox">
+<span id="pText">PHOTO<br>BOX</span>
+<img id="outPhoto" src="alt="Student Photo">
+</div>
+</div>
+<div class="card-footer">
+Benar Road Jaipur 302012
+</div>
+</div>
+
+<script>
+function showDetails() {
+document.getElementById("outName").innerText = document.getElementById("stuName").value;
+document.getElementById("outRoll").innerText = document.getElementById("stuRoll").value;
+document.getElementById("outFather").innerText = document.getElementById("Father").value;
+document.getElementById("outMother").innerText = document.getElementById("Mother").value;
+document.getElementById("outPhone").innerText = document.getElementById("stuPhone").value;
+
+}
+function previewPhoto(event)
+{
+const reader = new FileReader();
+reader.onload = function(){
+const imgElement = document.getElementById("outPhoto");
+const textElement = document.getElementById("pText");
+imgElement.src =reader.result;
+imgElement.style.display="block";
+textElement.style.display = "none";
+}
+reader.readAsDataURL(event.target.files[0]);
+}
+function downloadCard(){
+const card = document.getElementById("myIdCard");
+html2canvas(card,[ useCORS: true}).then(canvas => {
+const link = document.createElement("a");
+link.download = (document.createElementById("stuName").value || "StudentID") + "_Card.png";
+link.href = canvas.toDataURL();
+link.click();
+});
+}
+</script>
 </body>
 </html>
